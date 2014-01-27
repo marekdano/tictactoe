@@ -1,0 +1,22 @@
+#main_container {
+	width: 720px;
+	margin: 0 auto;
+}
+
+#main_heading {
+
+}
+
+#board {
+	width: 510px;
+}
+
+.board_cell {
+	width: 170px;
+	float: left;
+	background: yellow;
+}
+
+.board_cell:hover {
+	background: red;
+}
