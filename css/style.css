@@ -18,8 +18,13 @@ h3, p {
 	text-align: center;
 }
 
+#left_column {
+	float: left;
+	width: 100px;
+}
+
 #board {
-	margin: 0 auto;
+	float: left;
 	width: 448px;
 }
 
@@ -36,20 +41,16 @@ h3, p {
 	clear: both;
 }
 
-ul {
-	list-style: none;
-	padding: 0px;
-}
-
- #scorebox ul li {
- 	width: 200px;
+ #scorebox .cell {
+ 	width: 212px;
  	padding: 0;
- 	margin: 0 7px 0 3px;
+ 	margin: 10px 7px 0 3px;
  	float: left;
  }
 
  #scorebox h3 {
- 	padding: 12px 0 0 25px;
+ 	float: left;
+ 	padding: 12px 7px 0 15px;
 
  }
 
@@ -57,7 +58,7 @@ ul {
  	width: 80px;
 	border: 0;
 	color: #FFFFFF;
-	float: right;
+	float: left;
 	text-align: center;
 	font-size: 40px;
 	border-radius: 5px;
