@@ -152,7 +152,10 @@ var resetBoard = function() {
 	for(var i=0; i<board.length; i++) {
    		$(".board_cell[id=" + i + "]").removeClass("first_player_cell second_player_cell");
    		board[i] = 0;
-  	}
+  }
+  
+  // first player starts the game first
+    turnPlayer = player1;
 };
 
 // reset the board, update score, set first move for player1, winning player is undefined
