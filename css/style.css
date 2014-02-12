@@ -44,7 +44,7 @@ h3, p {
 button {
 	margin: 3px;
 	color: #fff;
-	background-color: #333;
+	background-color: #4f4f4f;
 	border: 1px solid transparent;
 	font-weight: bold;
 	cursor: pointer;
@@ -56,7 +56,7 @@ button {
 }
 
 button:hover {
-	background-color: #3276b1;
+	background-color: #333333;
 }
 
 button#btn-reset {
@@ -108,10 +108,10 @@ input[type="text"]#player2 {
 	background: #FFFBAF;
 }
 
-.first_player_cell, #player1 {
+.first_player_cell, #playerOne {
 	background: #7374B0;
 }
 
-.second_player_cell, #player2 {
+.second_player_cell, #playerTwo {
 	background: #E185A2;
 }
