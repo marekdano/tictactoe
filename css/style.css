@@ -24,6 +24,7 @@ h3, p {
 }
 
 #board {
+	margin: 0 0 30px 0;
 	float: left;
 	width: 448px;
 }
@@ -80,7 +81,6 @@ button#btn-reset:hover {
 #scorebox h3 {
  	float: left;
  	padding: 12px 7px 0 5px;
-
 }
 
  #scorebox h3#first_player {
