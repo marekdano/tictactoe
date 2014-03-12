@@ -1,4 +1,4 @@
 tictactoe
 =========
 
-Tic-Tac-Toe game 
+Tic-Tac-Toe game for two players or a player against computer with displaying players' score.
