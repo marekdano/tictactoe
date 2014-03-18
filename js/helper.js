@@ -196,11 +196,6 @@ var Game = {
      	this.player2 = undefined;
     }
     this.player1 = new Player("First player");
-    $("input[name=playerOne]").val(this.player1.score);
-    // if player2 is defined, the player2 score is displayed
-    this.player2 && $("input[name=playerTwo]").val(this.player2.score);
-    // if computer is defined, the player2 score is displayed
-    this.computer && $("input[name=playerTwo]").val(this.computer.score); 
     
     return this.nextGame();
   }
