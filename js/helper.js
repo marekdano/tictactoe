@@ -83,19 +83,19 @@ var Game = {
         help_board[j] = this.player1;
         if(this.checkMove(help_board)) {
           this.board[j] = this.turnPlayer;
-  	  $(".board_cell[id=" + j + "]").addClass("second_player_cell");
-  	  return;
+  	      $(".board_cell[id=" + j + "]").addClass("second_player_cell");
+  	      return;
         }
         help_board[j] = 0;
-     }
-   } 
+      }
+    } 
 
     // move computer in one of the best moves
     for (var k=0; k<this.BEST_MOVES.length; k++) {
       if(this.board[this.BEST_MOVES[k]] === 0) {
         this.board[this.BEST_MOVES[k]] = this.turnPlayer;
-  	$(".board_cell[id=" + this.BEST_MOVES[k] + "]").addClass("second_player_cell");
-  	return;
+  	    $(".board_cell[id=" + this.BEST_MOVES[k] + "]").addClass("second_player_cell");
+  	    return;
       }
     }
   },
@@ -106,8 +106,8 @@ var Game = {
     var WIN_COMBS = this.WIN_COMBS;
     for(var i=0; i<WIN_COMBS.length; i++) {
       if(board[WIN_COMBS[i][0]] === board[WIN_COMBS[i][1]] && board[WIN_COMBS[i][0]] === board[WIN_COMBS[i][2]] && 
-  	 board[WIN_COMBS[i][1]] === board[WIN_COMBS[i][2]] && board[WIN_COMBS[i][1]]!== 0) {
-	 return true;
+  	    board[WIN_COMBS[i][1]] === board[WIN_COMBS[i][2]] && board[WIN_COMBS[i][1]]!== 0) {
+	      return true;
       }
     } 
     return false;
@@ -231,12 +231,12 @@ $(document).ready(function() {
         Game.nextPlayer();
         if(Game.getComputer()) {
           Game.computerMove();
-	  result = Game.checkWinner(board);
-	  if (result || result === "tie") {
-	    return Game.end(result);
-	  }
-	  Game.nextPlayer();
-	}
+	        result = Game.checkWinner(board);
+	        if (result || result === "tie") {
+	          return Game.end(result);
+	        }
+	        Game.nextPlayer();
+	      }
       }
     }
   });
