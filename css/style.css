@@ -18,7 +18,7 @@ h3, p {
 	text-align: center;
 }
 
-#left_column {
+.left_column {
 	float: left;
 	width: 135px;
 }
@@ -36,6 +36,10 @@ h3, p {
 	float: left;
 	background: #FFFFF5;
 	border: solid 1px;
+}
+
+.cell_hovered {
+	background: #FFFBAF;
 }
 
 .clear {
@@ -102,10 +106,6 @@ input[type="text"].txt {
 
 input[type="text"]#player2 {
 	margin-left: 10px; 
-}
-
-.cell_hovered {
-	background: #FFFBAF;
 }
 
 .first_player_cell, #playerOne {
