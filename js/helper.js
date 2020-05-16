@@ -9,9 +9,20 @@ Player.prototype.won = function() {
   this.score += 1;
 };
 
-var Game = {
+// class Player {
+//   constructor(name) {
+//     this.name = name;
+//     this.score = 0;
+//   }
+
+//   won() {
+//     this.score += 1;
+//   }
+// }
+
+const Game = {
   // initialize an empty board;
-  board: [0,0,0,0,0,0,0,0,0],
+  board: [0, 0, 0, 0, 0, 0, 0, 0, 0],
   // all winning combinations 
   WIN_COMBS: [[0, 1, 2], [3, 4, 5], [6, 7, 8], // horizontal
 		          [0, 3, 6], [1, 4, 7], [2, 5, 8], // vertical
@@ -40,13 +51,10 @@ var Game = {
     return this.computer;
   },
 
-  // a player move
   move: function(cell, index) {
    	if(this.turnPlayer === this.player1) {
-      // $(cell).addClass("first_player_cell");
       cell.classList.add('first_player_cell') 
     } else if(this.turnPlayer === this.player2) {
-      // $(cell).addClass("second_player_cell");
       cell.classList.add('second_player_cell') 
     } 
      
@@ -63,18 +71,34 @@ var Game = {
   // move computer in one of the best moves.   
   computerMove: function() {
     var help_board = this.board;
-    
+
+    // find if player or computer can win by pretending a player move
+    // function getCellByPlayer(player) {
+    //   for(let i=0; i<help_board.length; i++) {
+    //     if(help_board[i] === 0) {
+    //       help_board[i] = player;
+    //       if(this.checkMove(help_board)) {
+    //         this.board[i] = this.turnPlayer;
+    //         document.querySelector(`.board_cell[id="${i}"]`).classList.add('second_player_cell') 
+    //         return;
+    //       }
+    //       help_board[i] = 0;
+    //     }
+    //   } 
+    // }
+    // getCellByPlayer.call(this, this.computer)
+    // getCellByPlayer.call(this, this.player1)
+
     // find if computer can win by pretending a computer move
     for(var i=0; i<help_board.length; i++) {
      	if(help_board[i] === 0) {
   		  // checking if computer can win
   		  help_board[i] = this.computer;
   		  if(this.checkMove(help_board)) {
-  	 		  this.board[i] = this.turnPlayer;
-          // $(".board_cell[id=" + i + "]").addClass("second_player_cell");
+          this.board[i] = this.turnPlayer;
           document.querySelector(`.board_cell[id="${i}"]`).classList.add('second_player_cell') 
-  	 		  return;
-  		  }
+          return;
+        }
   		  help_board[i] = 0;
      	}
     } 
@@ -85,23 +109,21 @@ var Game = {
   		  // checking if player1 (human) can win
   			help_board[j] = this.player1;
   			if(this.checkMove(help_board)) {
-  		 		this.board[j] = this.turnPlayer;
-          // $(".board_cell[id=" + j + "]").addClass("second_player_cell");
+          this.board[j] = this.turnPlayer;
           document.querySelector(`.board_cell[id="${j}"]`).classList.add('second_player_cell') 
-  		 		return;
-  			}
+          return;
+        }
   			help_board[j] = 0;
      	}
     } 
-
+    
     // move computer in one of the best moves
-    for (var k=0; k<this.BEST_MOVES.length; k++) {
+    for (let k=0; k<this.BEST_MOVES.length; k++) {
      	if(this.board[this.BEST_MOVES[k]] === 0) {
-  			this.board[this.BEST_MOVES[k]] = this.turnPlayer;
-        // $(".board_cell[id=" + this.BEST_MOVES[k] + "]").addClass("second_player_cell");
-        document.querySelector(`.board_cell[id="${this.BEST_MOVES[k]}"]`).classList.add('second_player_cell') 
-  			return;
-     	}
+        this.board[this.BEST_MOVES[k]] = this.turnPlayer;
+        document.querySelector(`.board_cell[id="${this.BEST_MOVES[k]}"]`).classList.add('second_player_cell')   
+        return;
+      }
     }
   },
 
@@ -149,26 +171,26 @@ var Game = {
 
   // Displays the result of the game (winner name, tie) and set up a new game
   end: function(result) {
-    const message = `It's a tie! :)`
-  	if (result !== "tie") {
-     	this.winningPlayer = this.turnPlayer;
-     	alert(this.winningPlayer['name'] + " wins!!! Congratulation!!!");
+    if (result !== "tie") {
+      this.winningPlayer = this.turnPlayer;
+      confirm(this.winningPlayer['name'] + " wins!!! Congratulation!!! Do you want to continue?");
       this.winningPlayer.won();
-    } else {
-      alert("It's a tie! :)");
+      this.nextGame();
+      return;
     }
-    
-    this.nextGame()
+    confirm(`It's a tie :)! Do you want to continue?`);
+    this.nextGame();
   },
 
   // reset the board
   resetBoard: function() {
   	for(var i=0; i<this.board.length; i++) {
-      // $(".board_cell[id=" + i + "]").removeClass("first_player_cell second_player_cell");
       document.querySelector(`.board_cell[id="${i}"]`).classList.remove('first_player_cell', 'second_player_cell')
       this.board[i] = 0;
     }
     
+    // set winning player to undefined
+    this.winningPlayer = undefined;
     // first player always starts the game as first
     this.turnPlayer = this.player1;
   },
@@ -177,13 +199,10 @@ var Game = {
   nextGame: function() {
   	this.resetBoard();
     // update the score
-    // $("input[name=playerOne]").val(this.player1.score);
     document.querySelector('input[name=playerOne]').value = this.player1.score;
     // if player2 is defined, the player2 score is displayed
-    // this.player2 && $("input[name=playerTwo]").val(this.player2.score);
     if (this.player2) document.querySelector('input[name=playerTwo]').value = this.player2.score;
     // if computer is defined, the player2 score is displayed
-    // this.computer && $("input[name=playerTwo]").val(this.computer.score);
     if (this.computer) document.querySelector('input[name=playerTwo]').value = this.computer.score;
     // set winning player to undefined
     this.winningPlayer = undefined;
@@ -196,16 +215,12 @@ var Game = {
   initNew: function(button) { 
   	if (button === "btn-two_players") {
      	this.player2 = new Player("Second player");
-      // $("h3#second_player").html("Player 2")
       document.querySelector('h3#second_player').innerHTML = 'Player 2';
-      // $("h1#main_heading").html("tic tac toe for 2");
       document.querySelector('h1#main_heading').innerHTML = 'tic tac toe for 2';
      	this.computer = undefined;
     } else if (button === "btn-computer") {
      	this.computer = new Player("Computer");
-     	// $("h1#main_heading").html("tic tac toe against computer");
       document.querySelector('h1#main_heading').innerHTML = 'tic tac toe against computer';
-      // $("h3#second_player").html("Computer");
       document.querySelector('h3#second_player').innerHTML = 'Computer';
      	this.player2 = undefined;
     }
@@ -215,18 +230,11 @@ var Game = {
   }
 }
 
-
-// $(document).ready(function() {
 document.addEventListener('DOMContentLoaded', function() {
   // initialize a new game when the page is loaded
  	Game.initNew("btn-two_players");
 
- 	// get action when hovering over board cells
- 	// $(".board_cell").hover(function () {
-  //   $(this).addClass("cell_hovered");
-  // }, function () {
-  //   $(this).removeClass("cell_hovered");
-  // });
+ 	// listen for hovering over board cells
   document.querySelector('#board').addEventListener('mouseover', (e) => {
     const div = e.target
     if (+div.id >=0 && +div.id < 9) e.target.classList.add('cell_hovered')
@@ -237,38 +245,33 @@ document.addEventListener('DOMContentLoaded', function() {
   })
 
  	// if one of two buttons are hit initialize a new game 
-	// $("button").click(function() {
-	//   var buttonName = $(this).attr('id');
-	//   (buttonName === "btn-reset") ? Game.resetBoard() : Game.initNew(buttonName); 
-  // });
   document.querySelector('#action-btns').addEventListener('click', (e) => {
     const buttonName = e.target.id;
     (buttonName === "btn-reset") ? Game.resetBoard() : Game.initNew(buttonName); 
   });
 
  	// get the appropriate action when the cell is clicked
-	// $(".board_cell").click(function() {
   document.querySelector('#board').addEventListener('click', function(e) {
-    // var index = parseInt($(this).attr('id'));
     const attrValue = e.target.id;
     const index = parseInt(attrValue);
-  	// check if cells are available until someone wins
-  	if(Game.checkCell(index) === 0 && Game.getWinningPlayer() === undefined) {
-   		Game.move(e.target, index);
-   		var result = Game.checkWinner(board);
-   		if (result || result === "tie") {
-				return Game.end(result);
-   		} else {
+    // check if cells are available until someone wins
+    if(Game.checkCell(index) === 0 && Game.getWinningPlayer() === undefined) {
+      Game.move(e.target, index);
+      let result = Game.checkWinner(board);
+      if (result || result === "tie") {
+        setTimeout(() => Game.end(result), 0);
+      } else {
         Game.nextPlayer();
         if(Game.getComputer()) {
-	 				Game.computerMove();
-	 				result = Game.checkWinner(board);
-	 				if (result || result === "tie") {
-	  				return Game.end(result);
-	 				}
-	 				Game.nextPlayer();
-				}
-   		}
-  	}
- 	});
+          Game.computerMove();
+          result = Game.checkWinner(board);
+          if (result || result === "tie") {
+            setTimeout(() => Game.end(result), 0);
+            return
+          }
+          Game.nextPlayer();
+        }
+      }
+    }
+  });
 });
